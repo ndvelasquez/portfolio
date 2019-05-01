@@ -1,0 +1,63 @@
+<div class="container">
+  <h2>{{title}}</h2>
+
+  <div class="message success" *ngIf="status === 'success'">
+    Proyecto creado Satisfactoriamente, puedes <a href="#">Verlo Aquí</a>
+  </div>
+
+  <div class="message failed" *ngIf="status === 'failed'">
+    Proyecto No Creado
+  </div>
+
+  <form #projectForm="ngForm" (ngSubmit)="onSubmit(projectForm)">
+    <label for="name">Nombre del Proyecto</label> <br>
+    <input type="text" name="name" #name="ngModel" [(ngModel)]="project.name" required pattern="[A-Z a-z]+"> <br>
+    
+    <div class="form_error" *ngIf="name.invalid && (name.dirty || name.touched)">
+      <div *ngIf="name.errors.required">
+        <span>Este campo es requerido</span>
+      </div>
+    </div>
+    
+    <label for="description">Descripción</label> <br>
+    <textarea name="description" #description="ngModel" [(ngModel)]="project.description" cols="30" rows="5" required pattern="[A-Z a-z 0-9]+"></textarea> <br>
+
+    <div class="form_error" *ngIf="description.invalid && (description.dirty || description.touched)">
+      <div *ngIf="description.errors.required">
+        <span>Este campo es requerido</span>
+      </div>
+    </div>
+
+    <label for="category">Categoría</label> <br>
+    <input type="text" name="category" #category="ngModel" [(ngModel)]="project.category" required> <br>
+
+    <div class="form_error" *ngIf="category.invalid && (category.dirty || category.touched)">
+      <div *ngIf="category.errors.required">
+        <span>Este campo es requerido</span>
+      </div>
+    </div>
+
+    <label for="year">Año de lanzamiento</label> <br>
+    <input type="number" name="year" #year="ngModel" [(ngModel)]="project.year"> <br>
+
+    <label for="langs">Lenguajes utilizados</label> <br>
+    <input type="text" name="langs" #langs="ngModel" [(ngModel)]="project.langs" required> <br>
+
+    <div class="form_error" *ngIf="langs.invalid && (name.dirty || langs.touched)">
+      <div *ngIf="langs.errors.required">
+        <span>Este campo es requerido</span>
+      </div>
+    </div>
+
+    <label for="image">Imagen del Proyecto</label> <br>
+    <input type="file" name="image" #image="ngModel" [(ngModel)]="project.image" (change)="fileChangeEvent($event)"> <br>
+
+    <div *ngIf="image.invalid && (name.dirty || image.touched)">
+      <div *ngIf="image.errors.required">
+        <span>Debes agregar una imagen</span>
+      </div>
+    </div>
+
+    <input type="submit" value="Crear" [disabled]="projectForm.invalid">
+  </form>
+</div>
