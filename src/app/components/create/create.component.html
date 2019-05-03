@@ -1,8 +1,8 @@
-<div class="container">
+<div class="container" *ngIf="project">
   <h2>{{title}}</h2>
 
   <div class="message success" *ngIf="status === 'success'">
-    Proyecto creado Satisfactoriamente, puedes <a href="#">Verlo Aquí</a>
+    Proyecto creado Satisfactoriamente, puedes <a [routerLink]="[ '/proyecto', savedProject._id ]">Verlo Aquí</a>
   </div>
 
   <div class="message failed" *ngIf="status === 'failed'">
@@ -50,6 +50,10 @@
     </div>
 
     <label for="image">Imagen del Proyecto</label> <br>
+    <span *ngIf="project.image" class="image" style="float: none">
+        <img src="{{url+'get-image/'+project.image}}" alt="imagen del proyecto" style="width: 100px">
+    </span>
+    <br>
     <input type="file" name="image" #image="ngModel" [(ngModel)]="project.image" (change)="fileChangeEvent($event)"> <br>
 
     <div *ngIf="image.invalid && (name.dirty || image.touched)">
@@ -58,6 +62,7 @@
       </div>
     </div>
 
-    <input type="submit" value="Crear" [disabled]="projectForm.invalid">
+    <input type="submit" value="Editar" [disabled]="projectForm.invalid" *ngIf="project._id">
+    <input type="submit" value="Crear" [disabled]="projectForm.invalid" *ngIf="!project._id">
   </form>
 </div>

@@ -12,7 +12,7 @@ import { Global } from '../../services/global';
 export class ProjectsComponent implements OnInit {
   public projects: Project[];
   public url: string;
-  constructor(private projectService: ProjectService) { 
+  constructor(private projectService: ProjectService) {
     this.url = Global.url;
   }
 
